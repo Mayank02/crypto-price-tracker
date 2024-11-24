@@ -45,7 +45,7 @@ const mockContextValue = {
 };
 
 describe("CryptoView Component", () => {
-  test("renders the CryptoView component with provided context values", () => {
+  test("renders the CryptoView component with provided context values", async () => {
     render(
       <CryptoViewContext.Provider value={mockContextValue}>
         <CryptoView />
@@ -53,7 +53,12 @@ describe("CryptoView Component", () => {
     );
     fireEvent.click(screen.getByTestId("accordion-button"));
     expect(screen.getByText("Investment Calculator")).toBeInTheDocument();
-    // expect(screen.getByText("bitcoin")).toBeInTheDocument();
-    // expect(screen.getByText("ethereum")).toBeInTheDocument();
+
+    fireEvent.keyDown(screen.getByText("Select..."), {
+      key: "ArrowDown",
+    });
+
+    const existingItem = await screen.findAllByText("bitcoin-USD");
+    expect(existingItem.length).toBe(2);
   });
 });

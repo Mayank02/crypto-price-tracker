@@ -30,27 +30,27 @@ describe("InvestmentCalculator Component", () => {
     expect(screen.getByText("Result")).toBeInTheDocument();
   });
 
-  test.skip("calculates the correct crypto amount based on investment", () => {
+  test("calculates the correct crypto amount based on investment", async () => {
     render(
       <InvestmentCalculator cryptos={cryptos} filteredCryptos={cryptos} />
     );
 
-    // Select Bitcoin
-    fireEvent.change(screen.getByLabelText("Select Cryptocurrency"), {
-      target: { value: "bitcoin-USD" },
+    fireEvent.keyDown(screen.getByText("Select..."), {
+      key: "ArrowDown",
     });
 
+    const existingItem = await screen.findByText("bitcoin-USD");
+    fireEvent.click(existingItem);
+
     // Enter investment amount
-    fireEvent.change(screen.getByLabelText("Investment Amount"), {
+    fireEvent.change(screen.getByLabelText("Investment Amount (USD):"), {
       target: { value: "1000" },
     });
-    // Fast-forward the debounce timer
-    jest.advanceTimersByTime(500);
-    expect(
-      screen.getByText(
-        "You would own 0.020000 Bitcoin for an investment of $1000."
-      )
-    ).toBeInTheDocument();
+
+    const result = screen.getByTestId("result-text");
+    expect(result.textContent).toEqual(
+      "You would own 0.020000 bitcoin for an investment of $1000."
+    );
   });
 
   test("displays message when no crypto is selected or investment amount is zero", () => {

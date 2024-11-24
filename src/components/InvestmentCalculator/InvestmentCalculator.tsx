@@ -40,6 +40,7 @@ export const InvestmentCalculator: React.FC<InvestmentCalculatorProps> =
             </label>
             <Select
               id="crypto-select"
+              data-testid="crypto-select"
               className={styles.select}
               options={cryptoOptions}
               onChange={(option) => {
@@ -67,7 +68,7 @@ export const InvestmentCalculator: React.FC<InvestmentCalculatorProps> =
         <div className={styles.result}>
           <h3 className={styles.resultTitle}>Result</h3>
           {selectedCrypto && investmentAmount > 0 ? (
-            <p className={styles.resultText}>
+            <p className={styles.resultText} data-testid="result-text">
               You would own{" "}
               <strong>{cryptoAmount.toFixed(6) || "0.00"} </strong>
               {selectedCrypto.split("-")[0]} for an investment of $
