@@ -11,20 +11,20 @@ interface InvestmentCalculatorProps {
 export const InvestmentCalculator: React.FC<InvestmentCalculatorProps> =
   React.memo(({ cryptos, filteredCryptos }) => {
     const [selectedCrypto, setSelectedCrypto] = useState<string>("");
-    const [investmentAmount, setInvestmentAmount] = useState<number>(0);
-    const [cryptoAmount, setCryptoAmount] = useState<number>(0);
+    const [investmentAmount, setInvestmentAmount] = useState<number>(0.0);
+    const [cryptoAmount, setCryptoAmount] = useState<number>(0.0);
 
     useEffect(() => {
-      if (selectedCrypto && investmentAmount > 0) {
+      if (selectedCrypto && investmentAmount) {
         const crypto = filteredCryptos.find((c) => c.id === selectedCrypto);
         if (crypto) {
           const amount = investmentAmount / parseFloat(crypto.price);
-          setCryptoAmount(amount);
+          setCryptoAmount(isNaN(amount) ? 0 : amount);
         }
       } else {
         setCryptoAmount(0);
       }
-    }, [selectedCrypto, investmentAmount, cryptos, filteredCryptos]);
+    }, [selectedCrypto, investmentAmount, filteredCryptos]);
 
     const cryptoOptions = cryptos.map((crypto) => ({
       value: crypto.id,
@@ -42,7 +42,11 @@ export const InvestmentCalculator: React.FC<InvestmentCalculatorProps> =
               id="crypto-select"
               className={styles.select}
               options={cryptoOptions}
-              onChange={(option) => setSelectedCrypto(option?.value || "")}
+              onChange={(option) => {
+                if (option) {
+                  setSelectedCrypto(option.value);
+                }
+              }}
               aria-label="Select Cryptocurrency"
             />
           </div>
@@ -65,9 +69,7 @@ export const InvestmentCalculator: React.FC<InvestmentCalculatorProps> =
           {selectedCrypto && investmentAmount > 0 ? (
             <p className={styles.resultText}>
               You would own{" "}
-              <strong>
-                {isNaN(cryptoAmount) ? "0.00" : cryptoAmount.toFixed(6)}{" "}
-              </strong>
+              <strong>{cryptoAmount.toFixed(6) || "0.00"} </strong>
               {selectedCrypto.split("-")[0]} for an investment of $
               <strong>{investmentAmount}</strong>.
             </p>
