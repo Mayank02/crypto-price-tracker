@@ -1,0 +1,11 @@
+.header {
+  padding: 20px 8px;
+  background: hsl(228deg 39% 20%);
+  color: white;
+}
+
+.headerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}

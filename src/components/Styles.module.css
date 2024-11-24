@@ -1,0 +1,42 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  text-align: center;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.btnContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.btn {
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: transparent;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.btn.primary {
+  border: none;
+  background: hsl(228deg 60% 25%);
+  color: white;
+}
+
+.btn.secondary {
+  border: 1px solid hsl(228deg 60% 25%);
+  color: hsl(228deg 60% 25%);
+}

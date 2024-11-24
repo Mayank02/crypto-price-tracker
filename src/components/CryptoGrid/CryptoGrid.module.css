@@ -1,0 +1,48 @@
+.cellTextLeft {
+    text-align: left;
+}
+
+.cellTextCenter {
+    text-align: center;
+}
+
+.starFilled {
+    color: gold;
+    font-size: 20px;
+}
+
+.starEmpty {
+    color: lightgray;
+    font-size: 20px;
+}
+
+.lastUpdated {
+    text-align: right;
+    font-size: 14px;
+    color: #666;
+    /* padding: 10px 16px; */
+}
+
+.filterContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 16px;
+}
+
+.filterInputContainer {
+    display: flex;
+    align-items: center;
+}
+
+.filterInputContainer label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.filterInput {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
